@@ -16,6 +16,7 @@ export const EmailDashboard = () => {
   const [attachments, setAttachments] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState('compose');
 
   const handleSend = async () => {
     if (!emailContent.trim()) return;
@@ -34,6 +35,7 @@ Content: ${emailContent.length} characters
 Attachments: ${attachments.length} files
 
 Your email has been processed and delivered to the recipients.`);
+    setActiveTab('response');
   };
 
   const resetForm = () => {
@@ -63,7 +65,7 @@ Your email has been processed and delivered to the recipients.`);
 
         {/* Tabs */}
         <Card className="shadow-lg border-0 bg-card/50 backdrop-blur-sm">
-          <Tabs defaultValue="compose" value={response ? "response" : "compose"}>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
             <CardHeader>
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="compose">Compose</TabsTrigger>
