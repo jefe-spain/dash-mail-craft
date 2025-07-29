@@ -21,7 +21,7 @@ export const ResponseBox = ({ response }: ResponseBoxProps) => {
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-emerald-700">
           <CheckCircle className="h-5 w-5" />
-          Email Sent Successfully
+          Email Enviado Exitosamente
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -37,7 +37,7 @@ export const ResponseBox = ({ response }: ResponseBoxProps) => {
           className="w-full border-emerald-200 hover:bg-emerald-50"
         >
           <Copy className="h-4 w-4 mr-2" />
-          {copied ? 'Copied!' : 'Copy Response'}
+          {copied ? '¡Copiado!' : 'Copiar Respuesta'}
         </Button>
       </CardContent>
     </Card>

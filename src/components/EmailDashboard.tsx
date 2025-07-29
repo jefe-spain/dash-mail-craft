@@ -28,13 +28,13 @@ export const EmailDashboard = () => {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     setIsLoading(false);
-    setResponse(`Email sent successfully! 
+    setResponse(`¡Email enviado exitosamente! 
     
-Subject: ${subject || 'No subject'}
-Content: ${emailContent.length} characters
-Attachments: ${attachments.length} files
+Asunto: ${subject || 'Sin asunto'}
+Contenido: ${emailContent.length} caracteres
+Adjuntos: ${attachments.length} archivos
 
-Your email has been processed and delivered to the recipients.`);
+Tu email ha sido procesado y entregado a los destinatarios.`);
     setActiveTab('response');
   };
 
@@ -68,8 +68,8 @@ Your email has been processed and delivered to the recipients.`);
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <CardHeader>
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="compose">Compose</TabsTrigger>
-                <TabsTrigger value="response" disabled={!response}>Response</TabsTrigger>
+                <TabsTrigger value="compose">Redactar</TabsTrigger>
+                <TabsTrigger value="response" disabled={!response}>Respuesta</TabsTrigger>
               </TabsList>
             </CardHeader>
             <CardContent>
@@ -77,11 +77,11 @@ Your email has been processed and delivered to the recipients.`);
                 {/* Subject */}
                 <div className="space-y-2">
                   <Label htmlFor="subject" className="text-sm font-medium">
-                    Subject
+                    Asunto
                   </Label>
                   <Input
                     id="subject"
-                    placeholder="Enter email subject..."
+                    placeholder="Ingresa el asunto del email..."
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     className="transition-all duration-300 focus:shadow-md"
@@ -91,11 +91,11 @@ Your email has been processed and delivered to the recipients.`);
                 {/* Email Content */}
                 <div className="space-y-2">
                   <Label htmlFor="content" className="text-sm font-medium">
-                    Email Content
+                    Contenido del Email
                   </Label>
                   <Textarea
                     id="content"
-                    placeholder="Write your email content here..."
+                    placeholder="Escribe aquí el contenido de tu email..."
                     value={emailContent}
                     onChange={(e) => setEmailContent(e.target.value)}
                     className="min-h-[200px] transition-all duration-300 focus:shadow-md resize-none"
@@ -104,7 +104,7 @@ Your email has been processed and delivered to the recipients.`);
 
                 {/* File Upload */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Attachments</Label>
+                  <Label className="text-sm font-medium">Adjuntos</Label>
                   <FileUpload 
                     attachments={attachments}
                     onAttachmentsChange={setAttachments}
@@ -123,12 +123,12 @@ Your email has been processed and delivered to the recipients.`);
                     {isLoading ? (
                       <>
                         <LoadingSpinner />
-                        Sending...
+                        Enviando...
                       </>
                     ) : (
                       <>
                         <Send className="h-4 w-4" />
-                        Send Email
+                        Enviar Email
                       </>
                     )}
                   </Button>
@@ -139,7 +139,7 @@ Your email has been processed and delivered to the recipients.`);
                     size="lg"
                     disabled={isLoading}
                   >
-                    Reset
+                    Reiniciar
                   </Button>
                 </div>
               </TabsContent>

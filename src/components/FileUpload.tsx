@@ -60,9 +60,9 @@ export const FileUpload = ({ attachments, onAttachmentsChange }: FileUploadProps
               </div>
             </div>
             <div>
-              <p className="text-lg font-medium">Drop files here or click to browse</p>
+              <p className="text-lg font-medium">Arrastra archivos aquí o haz clic para explorar</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Support for multiple file types
+                Soporte para múltiples tipos de archivo
               </p>
             </div>
           </div>
@@ -73,7 +73,7 @@ export const FileUpload = ({ attachments, onAttachmentsChange }: FileUploadProps
       {attachments.length > 0 && (
         <div className="space-y-2">
           <p className="text-sm font-medium text-muted-foreground">
-            Attached Files ({attachments.length})
+            Archivos Adjuntos ({attachments.length})
           </p>
           <div className="space-y-2">
             {attachments.map((file, index) => (
