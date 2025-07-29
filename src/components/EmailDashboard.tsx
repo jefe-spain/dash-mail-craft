@@ -13,6 +13,7 @@ import { Send, Mail } from 'lucide-react';
 export const EmailDashboard = () => {
   const [emailContent, setEmailContent] = useState('');
   const [subject, setSubject] = useState('');
+  const [recipient, setRecipient] = useState('');
   const [attachments, setAttachments] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<string | null>(null);
@@ -30,6 +31,7 @@ export const EmailDashboard = () => {
     setIsLoading(false);
     setResponse(`¡Email enviado exitosamente! 
     
+Para: ${recipient || 'Sin destinatario'}
 Asunto: ${subject || 'Sin asunto'}
 Contenido: ${emailContent.length} caracteres
 Adjuntos: ${attachments.length} archivos
@@ -41,6 +43,7 @@ Tu email ha sido procesado y entregado a los destinatarios.`);
   const resetForm = () => {
     setEmailContent('');
     setSubject('');
+    setRecipient('');
     setAttachments([]);
     setResponse(null);
   };
@@ -74,6 +77,21 @@ Tu email ha sido procesado y entregado a los destinatarios.`);
             </CardHeader>
             <CardContent>
               <TabsContent value="compose" className="space-y-6 mt-0">
+                {/* Recipient */}
+                <div className="space-y-2">
+                  <Label htmlFor="recipient" className="text-sm font-medium">
+                    Para
+                  </Label>
+                  <Input
+                    id="recipient"
+                    placeholder="Ingresa el email del destinatario..."
+                    value={recipient}
+                    onChange={(e) => setRecipient(e.target.value)}
+                    className="transition-all duration-300 focus:shadow-md"
+                    type="email"
+                  />
+                </div>
+
                 {/* Subject */}
                 <div className="space-y-2">
                   <Label htmlFor="subject" className="text-sm font-medium">
