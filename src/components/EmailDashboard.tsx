@@ -56,7 +56,7 @@ Your email has been processed and delivered to the recipients.`);
             </h1>
           </div>
           <p className="text-muted-foreground text-lg">
-            Compose and send emails with attachments
+            Automatizacion - Flujo de pruebas
           </p>
         </div>
 
