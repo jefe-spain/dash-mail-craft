@@ -31,7 +31,7 @@ export const EmailDashboard = () => {
     setIsLoading(false);
     setResponse(`¡Email enviado exitosamente! 
     
-Para: ${recipient || 'Sin destinatario'}
+De: ${recipient || 'Sin remitente'}
 Asunto: ${subject || 'Sin asunto'}
 Contenido: ${emailContent.length} caracteres
 Adjuntos: ${attachments.length} archivos
@@ -80,11 +80,11 @@ Tu email ha sido procesado y entregado a los destinatarios.`);
                 {/* Recipient */}
                 <div className="space-y-2">
                   <Label htmlFor="recipient" className="text-sm font-medium">
-                    Para
+                    De
                   </Label>
                   <Input
                     id="recipient"
-                    placeholder="Ingresa el email del destinatario..."
+                    placeholder="Ingresa tu email (remitente)..."
                     value={recipient}
                     onChange={(e) => setRecipient(e.target.value)}
                     className="transition-all duration-300 focus:shadow-md"
