@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileUpload } from './FileUpload';
 import { LoadingSpinner } from './LoadingSpinner';
 import { ResponseBox } from './ResponseBox';
@@ -60,92 +61,93 @@ Your email has been processed and delivered to the recipients.`);
           </p>
         </div>
 
-        {/* Main Form */}
+        {/* Tabs */}
         <Card className="shadow-lg border-0 bg-card/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-primary" />
-              Compose Email
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Subject */}
-            <div className="space-y-2">
-              <Label htmlFor="subject" className="text-sm font-medium">
-                Subject
-              </Label>
-              <Input
-                id="subject"
-                placeholder="Enter email subject..."
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                className="transition-all duration-300 focus:shadow-md"
-              />
-            </div>
+          <Tabs defaultValue="compose" value={response ? "response" : "compose"}>
+            <CardHeader>
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="compose">Compose</TabsTrigger>
+                <TabsTrigger value="response" disabled={!response}>Response</TabsTrigger>
+              </TabsList>
+            </CardHeader>
+            <CardContent>
+              <TabsContent value="compose" className="space-y-6 mt-0">
+                {/* Subject */}
+                <div className="space-y-2">
+                  <Label htmlFor="subject" className="text-sm font-medium">
+                    Subject
+                  </Label>
+                  <Input
+                    id="subject"
+                    placeholder="Enter email subject..."
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    className="transition-all duration-300 focus:shadow-md"
+                  />
+                </div>
 
-            {/* Email Content */}
-            <div className="space-y-2">
-              <Label htmlFor="content" className="text-sm font-medium">
-                Email Content
-              </Label>
-              <Textarea
-                id="content"
-                placeholder="Write your email content here..."
-                value={emailContent}
-                onChange={(e) => setEmailContent(e.target.value)}
-                className="min-h-[200px] transition-all duration-300 focus:shadow-md resize-none"
-              />
-            </div>
+                {/* Email Content */}
+                <div className="space-y-2">
+                  <Label htmlFor="content" className="text-sm font-medium">
+                    Email Content
+                  </Label>
+                  <Textarea
+                    id="content"
+                    placeholder="Write your email content here..."
+                    value={emailContent}
+                    onChange={(e) => setEmailContent(e.target.value)}
+                    className="min-h-[200px] transition-all duration-300 focus:shadow-md resize-none"
+                  />
+                </div>
 
-            {/* File Upload */}
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Attachments</Label>
-              <FileUpload 
-                attachments={attachments}
-                onAttachmentsChange={setAttachments}
-              />
-            </div>
+                {/* File Upload */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Attachments</Label>
+                  <FileUpload 
+                    attachments={attachments}
+                    onAttachmentsChange={setAttachments}
+                  />
+                </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-3 pt-4">
-              <Button
-                onClick={handleSend}
-                disabled={!emailContent.trim() || isLoading}
-                variant="send"
-                size="lg"
-                className="flex-1"
-              >
-                {isLoading ? (
-                  <>
-                    <LoadingSpinner />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send className="h-4 w-4" />
-                    Send Email
-                  </>
-                )}
-              </Button>
-              
-              <Button
-                onClick={resetForm}
-                variant="outline"
-                size="lg"
-                disabled={isLoading}
-              >
-                Reset
-              </Button>
-            </div>
-          </CardContent>
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-4">
+                  <Button
+                    onClick={handleSend}
+                    disabled={!emailContent.trim() || isLoading}
+                    variant="send"
+                    size="lg"
+                    className="flex-1"
+                  >
+                    {isLoading ? (
+                      <>
+                        <LoadingSpinner />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" />
+                        Send Email
+                      </>
+                    )}
+                  </Button>
+                  
+                  <Button
+                    onClick={resetForm}
+                    variant="outline"
+                    size="lg"
+                    disabled={isLoading}
+                  >
+                    Reset
+                  </Button>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="response" className="mt-0">
+                {response && <ResponseBox response={response} />}
+              </TabsContent>
+            </CardContent>
+          </Tabs>
         </Card>
-
-        {/* Response Box */}
-        {response && (
-          <div className="animate-fade-in">
-            <ResponseBox response={response} />
-          </div>
-        )}
       </div>
     </div>
   );
