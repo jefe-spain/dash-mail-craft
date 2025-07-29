@@ -52,7 +52,7 @@ Your email has been processed and delivered to the recipients.`);
               <Mail className="h-8 w-8" />
             </div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-              Email Dashboard
+              PuertasTHT
             </h1>
           </div>
           <p className="text-muted-foreground text-lg">
