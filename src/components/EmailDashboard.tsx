@@ -21,23 +21,43 @@ export const EmailDashboard = () => {
 
   const handleSend = async () => {
     if (!emailContent.trim()) return;
-    
+
     setIsLoading(true);
     setResponse(null);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsLoading(false);
-    setResponse(`¡Email enviado exitosamente! 
-    
-De: ${recipient || 'Sin remitente'}
-Asunto: ${subject || 'Sin asunto'}
-Contenido: ${emailContent.length} caracteres
-Adjuntos: ${attachments.length} archivos
 
-Tu email ha sido procesado y entregado a los destinatarios.`);
-    setActiveTab('response');
+    const formData = new FormData();
+    formData.append('from', recipient);
+    formData.append('subject', subject);
+    formData.append('body', emailContent);
+    attachments.forEach((file) => {
+      formData.append('attachments', file);
+    });
+
+    try {
+      // Use production URL in production, proxy in development
+      const apiUrl = import.meta.env.PROD 
+        ? 'https://n8n-consultorsia.up.railway.app/webhook/puertas-tht-production'
+        : '/api';
+        
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setResponse(`¡Email enviado exitosamente!\n\nRespuesta del servidor:\n${JSON.stringify(result, null, 2)}`);
+      } else {
+        setResponse(`Error al enviar el email: ${result.message || 'Error desconocido'}`);
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setResponse(`Error al enviar el email. Revisa la consola para más detalles.`);
+    } finally {
+      setIsLoading(false);
+      setActiveTab('response');
+    }
   };
 
   const resetForm = () => {
