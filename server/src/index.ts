@@ -7,6 +7,7 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import analyzeRouter from "./routes/analyze";
+import processEmailRouter from "./routes/processEmail";
 import { initializeClient } from "./services/documentIntelligence";
 
 // Load environment variables
@@ -62,7 +63,8 @@ app.get("/", (req: Request, res: Response) => {
     message: "Dash Mail Craft - PDF Order Analysis Server",
     version: "1.0.0",
     endpoints: {
-      analyze: "POST /analyze - Analyze PDF documents",
+      analyze: "POST /analyze - Analyze PDF documents (JSON with base64)",
+      processEmail: "POST /process-email - Process email with PDF attachments (FormData)",
       health: "GET /health - Server health check",
     },
   });
@@ -81,6 +83,9 @@ app.get("/health", (req: Request, res: Response) => {
 
 // Analyze endpoint
 app.use("/analyze", analyzeRouter);
+
+// Process email endpoint
+app.use("/process-email", processEmailRouter);
 
 // ========== ERROR HANDLING ==========
 

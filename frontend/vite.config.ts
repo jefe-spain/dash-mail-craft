@@ -9,9 +9,14 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     proxy: {
       '/api': {
-        target: 'https://consultorsia.up.railway.app/webhook-test/puertas-tht-development',
+        target: 'https://n8n-consultorsia.up.railway.app/webhook-test/puertas-tht-development',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      '/server': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/server/, ''),
       },
     },
   },
